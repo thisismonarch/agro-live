@@ -12,6 +12,7 @@ Agrofix is a commodity market intelligence terminal for African agricultural mar
 `index.html` is the whole frontend: a single static file with HTML, CSS and JavaScript. It has no build step.
 
 Tabs:
+
 - **Overview:** commodity intelligence cards, price charts, regional price comparison, daily market brief
 - **Routes, Compliance, Weather:** trade routes, tariff and certification status, weather impact
 - **Trading:** quick trade and advanced order forms (UI only)
