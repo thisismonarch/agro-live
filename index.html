@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agrofix: Commodity Intelligence and Synthetic Markets</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js">
         function showProvenance(commodity) {
             const intel = products[commodity]?.intelligence || {};
             const msg = `
@@ -109,7 +109,7 @@ Updated: ${new Date().toLocaleTimeString()}
 
         </script>
     <!-- Pyth Network SDK (for future integration) -->
-    <script src="https://cdn.jsdelivr.net/npm/@pythnetwork/client@latest/dist/index.min.js">
+    <script defer src="https://cdn.jsdelivr.net/npm/@pythnetwork/client@latest/dist/index.min.js">
         function showProvenance(commodity) {
             const intel = products[commodity]?.intelligence || {};
             const msg = `
@@ -393,6 +393,89 @@ Updated: ${new Date().toLocaleTimeString()}
         
         .tab-content { display: none; }
         .tab-content.active { display: block; }
+        .page-tab { display: none; }
+        .page-tab.active { display: block; }
+        .sub-tab { display: block; }
+        .inherit-group { margin: 1.5rem 0; border: 1.5px solid var(--border-color); border-radius: 10px; background: var(--bg-primary); }
+        .inherit-group > summary { cursor: pointer; padding: 0.9rem 1.25rem; font-weight: 700; font-size: 14px; color: var(--text-secondary); list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        .inherit-group > summary::after { content: '+'; font-size: 18px; color: var(--gold-accent); }
+        .inherit-group[open] > summary::after { content: '−'; }
+        .inherit-group > summary::-webkit-details-marker { display: none; }
+        .inherit-count { font-weight: 500; font-size: 12px; color: var(--text-secondary); margin-left: auto; margin-right: 1rem; }
+        .inherit-body { padding: 0 0.5rem 0.5rem; }
+        .page-nav { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0 0.75rem; }
+        .page-nav-btn { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.6rem 1.1rem; border: 1.5px solid var(--border-color); border-radius: 999px; background: var(--bg-primary); color: var(--text-primary); font-weight: 600; font-size: 14px; cursor: pointer; }
+        .page-nav-btn:hover { border-color: var(--gold-accent); }
+        .page-nav-btn.active { background: var(--gold-accent); color: white; border-color: var(--gold-accent); }
+        .page-nav-btn .paid-tag { margin-left: 0.2rem; }
+        .page-contents { margin: 0 0 1.5rem; padding: 0.9rem 1.1rem; border-radius: 10px; background: var(--bg-secondary); border: 1px solid var(--border-color); }
+        .contents-head { font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 0.6rem; }
+        .content-chip { display: inline-block; margin: 0 0.4rem 0.4rem 0; padding: 0.3rem 0.7rem; border-radius: 999px; background: var(--bg-primary); border: 1px solid var(--border-color); font-size: 13px; color: var(--text-primary); }
+        .top-bar .page-nav { flex-basis: 100%; margin: 0.25rem 0 0; }
+        .profile-wrap { position: relative; }
+        .user-avatar { border: none; cursor: pointer; padding: 0; font-family: inherit; background-size: cover; background-position: center; }
+        .profile-menu { display: none; position: absolute; right: 0; top: 50px; min-width: 230px; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); padding: 0.4rem; z-index: 200; }
+        .profile-menu.open { display: block; }
+        .profile-menu button { display: block; width: 100%; text-align: left; background: none; border: none; padding: 0.6rem 0.8rem; border-radius: 6px; cursor: pointer; color: var(--text-primary); font-size: 14px; font-family: inherit; }
+        .profile-menu button:hover { background: var(--bg-secondary); }
+        .profile-menu .danger { color: var(--danger-red); }
+        .profile-menu hr { border: none; border-top: 1px solid var(--border-color); margin: 0.3rem 0; }
+        .top-bar { position: relative; }
+        .theme-toggle-corner { position: absolute; top: 1rem; right: 1rem; }
+        .page-nav .nav-right { margin-left: 0.5rem; display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+        .page-nav .wallet-info { padding: 0.55rem 0.9rem; font-size: 13px; }
+        /* Keep page buttons, wallet and profile on one line (desktop sizes stay as they were) */
+        .top-bar .page-nav { flex-wrap: nowrap; overflow: visible; align-items: center; gap: 0.4rem; }
+        .top-bar .page-nav::-webkit-scrollbar { display: none; }
+        .page-nav .page-nav-btn { flex-shrink: 0; white-space: nowrap; }
+        .page-nav .nav-right { flex-shrink: 0; flex-wrap: nowrap; gap: 0.4rem; }
+        .profile-label { display: none; }
+        .user-avatar.has-photo .avatar-letter { display: none; }
+        .mobile-menu-btn { display: none; }
+
+        /* Narrow desktop windows and desktop-site mode on phones: keep the bar on one line without sideways scrolling */
+        @media (min-width: 769px) and (max-width: 1100px) {
+            .page-nav .page-nav-btn { padding: 0.45rem 0.7rem; font-size: 12px; gap: 0.3rem; }
+            .page-nav .paid-tag { font-size: 8px; padding: 1px 5px; }
+            .page-nav .wallet-info { padding: 0.4rem 0.6rem; font-size: 11px; }
+            .page-nav .user-avatar { width: 34px; height: 34px; font-size: 14px; }
+            .page-nav .nav-right { gap: 0.4rem; }
+        }
+
+        /* Mobile only */
+        @media (max-width: 768px) {
+            .page-nav .page-nav-btn { padding: 0.45rem 0.7rem; font-size: 12px; gap: 0.3rem; }
+            .page-nav .paid-tag { font-size: 8px; padding: 1px 5px; letter-spacing: 0.3px; }
+            .page-nav .wallet-info { padding: 0.4rem 0.6rem; font-size: 11px; }
+            .page-nav .user-avatar { width: 34px; height: 34px; font-size: 14px; flex-shrink: 0; }
+            .mobile-menu-btn { display: flex; position: absolute; top: 0.9rem; right: 0.9rem; width: 38px; height: 38px; align-items: center; justify-content: center; font-size: 20px; border-radius: 10px; border: 1.5px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary); cursor: pointer; }
+            .top-bar { padding: 1rem 1rem 0.9rem; }
+            .top-bar-left { padding-right: 6.5rem; }
+            .theme-toggle-corner { top: 0.9rem; right: 3.6rem; width: 38px; height: 38px; }
+            .top-bar-right { width: 100%; justify-content: flex-start; gap: 0.5rem; }
+            .currency-selector { flex-wrap: wrap; gap: 0.3rem; }
+            .currency-btn { padding: 0.4rem 0.6rem; font-size: 12px; }
+            .oracle-badge { font-size: 12px; padding: 0.4rem 0.7rem; }
+
+            .top-bar .page-nav { display: none; flex-direction: column; flex-wrap: nowrap; overflow: visible; align-items: stretch; gap: 0.45rem; margin: 0.75rem 0 0; width: 100%; }
+            .top-bar .page-nav.open { display: flex; }
+            .page-nav .nav-right { display: contents; }
+            .page-nav .wallet-info { order: -1; width: 100%; box-sizing: border-box; text-align: left; font-size: 13px; padding: 0.65rem 0.9rem; }
+            .page-nav .page-nav-btn { width: 100%; box-sizing: border-box; justify-content: flex-start; padding: 0.7rem 1rem; font-size: 14px; }
+            .page-nav .profile-wrap { order: 99; width: 100%; }
+            .page-nav .user-avatar { width: 100%; height: auto; box-sizing: border-box; border-radius: 10px; padding: 0.7rem 1rem; font-size: 14px; text-align: left; justify-content: flex-start; background: var(--bg-primary); color: var(--text-primary); border: 1.5px solid var(--border-color); }
+            .page-nav .avatar-letter { display: none; }
+            .page-nav .profile-label { display: inline; }
+            .profile-menu { right: calc(100% + 10px); top: 0; min-width: 210px; background: rgba(255,255,255,0.85); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+            html.dark-mode .profile-menu { background: rgba(30,30,30,0.85); }
+            .profile-menu { right: 0; left: 0; top: auto; bottom: calc(100% + 6px); min-width: 0; }
+            .market-share-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
+            .market-share-grid .chart-container { height: 260px !important; width: 100%; max-width: 300px; margin: 0 auto; position: relative; }
+            #marketLegend { font-size: 13px; }
+            .mobile-menu-btn, .theme-toggle-corner { display: flex; align-items: center; justify-content: center; padding: 0; line-height: 1; font-size: 18px; }
+        }
+        .paid-tag { margin-left: auto; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; background: rgba(212,165,116,0.18); color: var(--gold-accent); }
+        .nav-dropdown-item { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
         
         .terminal-container { background: #0d0d0d; border: 1px solid #333; border-radius: 8px; display: flex; flex-direction: column; height: 500px; font-family: "Courier New", monospace; color: #00ff00; padding: 1.25rem; }
         .terminal-output { flex: 1; overflow-y: auto; margin-bottom: 1rem; font-size: 13px; white-space: pre-wrap; line-height: 1.6; }
@@ -409,6 +492,11 @@ Updated: ${new Date().toLocaleTimeString()}
         
         .watchlist-item { background: var(--bg-secondary); padding: 1.25rem; border-radius: 8px; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-color); transition: all 0.2s; }
         .watchlist-item:hover { border-color: var(--gold-accent); }
+        .wl-add-btn { margin-left: auto; width: 34px; height: 34px; border-radius: 50%; border: none; background: linear-gradient(135deg, var(--gold-accent), #FF8C00); color: #fff; font-size: 22px; font-weight: 700; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; }
+        .wl-add-btn:hover { transform: translateY(-2px) rotate(90deg); box-shadow: 0 8px 16px rgba(255,165,0,0.3); }
+        .wl-add-panel { display: none; gap: 0.75rem; flex-wrap: wrap; align-items: center; background: var(--bg-secondary); border: 1px dashed var(--gold-accent); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+        .wl-add-panel.open { display: flex; }
+        .wl-add-panel select { flex: 1; min-width: 130px; }
         
         .alert-banner { background: #FFF8DC; border: 1.5px solid #FFD700; border-left: 4px solid #FFD700; padding: 1.25rem; border-radius: 8px; margin-bottom: 1rem; color: #8B6914; font-size: 13px; line-height: 1.6; z-index: 100001; position: relative; }
         .alert-banner.success { background: #ECFDF5; border-color: #10B981; color: #065F46; }
@@ -808,9 +896,33 @@ Updated: ${new Date().toLocaleTimeString()}
     <div id="mainApp" style="display: none;">
         <div class="terminal">
             <div class="top-bar">
+                <button class="theme-toggle theme-toggle-corner" onclick="toggleDarkMode()" title="Toggle dark mode">🌙</button>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Open menu">☰</button>
                 <div class="top-bar-left">
                     <h2>🌾 Agrofix</h2>
-                    <p>Market intelligence • Route optimization • Synthetic markets (demo) • Oracle (demo) • Risk management</p>
+                    <p>Trade commodities on real pricing intelligence</p>
+                </div>
+                <div class="page-nav" id="pageNav">
+                    <button class="page-nav-btn active" data-tab="overview" onclick="togglePage('overview')">📊 Overview</button>
+                    <button class="page-nav-btn" data-tab="market" onclick="togglePage('market')">⚖️ Market</button>
+                    <button class="page-nav-btn" data-tab="pro" onclick="togglePage('pro')">🧭 Pro<span class="paid-tag">Paid</span></button>
+                    <button class="page-nav-btn" data-tab="traders" onclick="togglePage('traders')">💹 Traders<span class="paid-tag">Paid</span></button>
+                    <button class="page-nav-btn" data-tab="enterprise" onclick="togglePage('enterprise')">🏦 Enterprise<span class="paid-tag">Paid</span></button>
+                    <button class="page-nav-btn" data-tab="terminal" onclick="togglePage('terminal')">⚡ Terminal</button>
+                    <div class="nav-right">
+                        <div class="wallet-info" id="walletInfo">Not connected</div>
+                        <div class="profile-wrap">
+                            <button class="user-avatar" id="userAvatar" onclick="toggleProfileMenu(event)"><span class="avatar-letter">M</span><span class="profile-label">Profile</span></button>
+                            <div class="profile-menu" id="profileMenu">
+                                <button onclick="profileAction('admin')">🛠️ Admin dashboard</button>
+                                <button onclick="profileAction('password')">🔑 Change password</button>
+                                <button onclick="profileAction('picture')">🖼️ Change profile picture</button>
+                                <hr>
+                                <button class="danger" onclick="handleLogout()">🚪 Logout</button>
+                            </div>
+                            <input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="setAvatarPicture(this)">
+                        </div>
+                    </div>
                 </div>
                 <div class="top-bar-right">
                     <div class="currency-selector">
@@ -823,16 +935,10 @@ Updated: ${new Date().toLocaleTimeString()}
                         <span>🔗 Oracle (demo)</span>
                         <span id="oraclePrice">—</span>
                     </div>
-                    <div class="wallet-info" id="walletInfo">Not connected</div>
-                    <div class="user-info">
-                        <div class="user-avatar" id="userAvatar">U</div>
-                        <button class="theme-toggle" onclick="toggleDarkMode()">🌙</button>
-                        <button class="logout-btn" onclick="handleLogout()">Logout</button>
-                    </div>
                 </div>
             </div>
 
-            <div class="header">
+        <div class="header">
                 <h1>Market Dashboard</h1>
                 <p>Advanced agricultural commodities trading with technical analysis, risk management, and Solana settlement</p>
             </div>
@@ -855,235 +961,10 @@ Updated: ${new Date().toLocaleTimeString()}
                 </div>
             </div>
 
-            <!-- Dropdown Menu Trigger (Top Right - Floating) -->
-            <div class="nav-dropdown-container">
-                <button class="nav-dropdown-trigger" onclick="toggleNavDropdown()">
-                    <span class="nav-menu-icon">☰</span><span class="nav-menu-text"> Menu</span>
-                </button>
-                <div id="navDropdownMenu" class="nav-dropdown-menu" style="display:none;">
-                    <button class="nav-dropdown-item active" onclick="switchTab('overview'); closeNavDropdown();">📊 Overview</button>
-                    <button class="nav-dropdown-item" onclick="switchTab('routes'); closeNavDropdown();">🗺️ Routes</button>
-                    <button class="nav-dropdown-item" onclick="switchTab('compliance'); closeNavDropdown();">✅ Compliance</button>
-                    <button class="nav-dropdown-item" onclick="switchTab('weather'); closeNavDropdown();">🌦️ Weather</button>
-                    <button class="nav-dropdown-item" onclick="switchTab('synthetic'); closeNavDropdown();">⚖️ Synthetic Markets</button>
-                    <button class="nav-dropdown-item" onclick="switchTab('trading'); closeNavDropdown();">💹 Trading</button>
-                    <button class="nav-dropdown-item" onclick="switchTab('portfolio'); closeNavDropdown();">💼 Portfolio</button>
-                    <button class="nav-dropdown-item" onclick="switchTab('watchlist'); closeNavDropdown();">⭐ Watchlist</button>
-                    <button class="nav-dropdown-item" onclick="switchTab('collateral'); closeNavDropdown();">🏦 Collateral Valuation</button>
-                    <button class="nav-dropdown-item" onclick="switchTab('margin'); closeNavDropdown();">📈 Margin Calculator</button>
-                    <button class="nav-dropdown-item" onclick="switchTab('terminal'); closeNavDropdown();">⚡ Terminal</button>
-                </div>
-            </div>
 
             <!-- OVERVIEW TAB -->
-            <div id="overviewTab" class="tab-content active">
-                <div id="alertsContainer"></div>
-                <div class="metrics-grid" id="metrics"></div>
-
-                <div class="section">
-                    <div class="section-title">📈 Technical Analysis Charts</div>
-                    <div class="content-box">
-                        <div class="chart-tabs">
-                            <button class="chart-tab active" onclick="switchChart('historical')">Historical Prices</button>
-                            <button class="chart-tab" onclick="switchChart('volatility')">Volatility</button>
-                            <button class="chart-tab" onclick="switchChart('flow')">Inflow/Outflow</button>
-                            <button class="chart-tab" onclick="switchChart('indicators')">RSI & SMA</button>
-                        </div>
-                        <div id="historicalChart" class="tab-content active">
-                            <div class="chart-container">
-                                <canvas id="priceChart"></canvas>
-                            </div>
-                        </div>
-                        <div id="volatilityChart" class="tab-content">
-                            <div class="chart-container">
-                                <canvas id="volChart"></canvas>
-                            </div>
-                        </div>
-                        <div id="flowChart" class="tab-content">
-                            <div class="chart-container">
-                                <canvas id="flowChartCanvas"></canvas>
-                            </div>
-                        </div>
-                        <div id="indicatorsChart" class="tab-content">
-                            <div class="chart-container">
-                                <canvas id="indicatorsChartCanvas"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <div class="section-title">💰 Quick Trade Order</div>
-                    <div class="trade-panel">
-                        <div class="trade-form-group">
-                            <label>Type</label>
-                            <select id="quickTradeType" onchange="updateQuickTradeUI()">
-                                <option value="buy">Buy</option>
-                                <option value="sell">Sell</option>
-                            </select>
-                        </div>
-                        <div class="trade-form-group">
-                            <label>Quantity</label>
-                            <div style="display:flex; gap:0.4rem;">
-                                <input type="number" id="quickTradeQty" value="100" min="1" style="flex:1; min-width:0;">
-                                <select id="quickQtyUnit" onchange="updateQuickPrice()" style="width:92px;">
-                                    <option value="kg">kg</option>
-                                    <option value="tonne">tonne</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="trade-form-group">
-                            <label>Price (<span id="quickTradeCurrency">USD</span>/<span id="quickTradeUnit">kg</span>)</label>
-                            <input type="number" id="quickTradePrice" readonly>
-                        </div>
-                        <div class="trade-form-group">
-                            <label>Settlement</label>
-                            <select id="quickSettlement">
-                                <option value="solana">🔗 Solana USDC (coming soon, demo)</option>
-                                <option value="bank">🏦 Bank Transfer (coming soon)</option>
-                            </select>
-                        </div>
-                        <button class="trade-btn" onclick="submitQuickTrade()">Place Order</button>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <div class="section-title">Market Digest <span class="tier-badge tier-pro">Pro</span></div>
-                    <div id="dailyBriefCard" class="content-box digest">
-                        <div class="digest-grid">
-                            <div>
-                                <div class="digest-col-title">Movers</div>
-                                <div class="mover">
-                                    <div><div class="mover-name">Maize</div><div class="mover-note">US drought watch</div></div>
-                                    <span class="mover-change up">+2.1%</span>
-                                </div>
-                                <div class="mover">
-                                    <div><div class="mover-name">Coffee</div><div class="mover-note">Brazil frost risk</div></div>
-                                    <span class="mover-change up">+3.4%</span>
-                                </div>
-                                <div class="mover">
-                                    <div><div class="mover-name">Cocoa</div><div class="mover-note">Ivorian harvest ramp</div></div>
-                                    <span class="mover-change down">−1.2%</span>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="digest-col-title">Watch</div>
-                                <div class="watch-row"><span class="watch-label">FX</span><span>Naira ₦1,652/$ (+0.3%)</span></div>
-                                <div class="watch-row"><span class="watch-label">EUDR</span><span>Cocoa traceability demand +15% YoY</span></div>
-                                <div class="watch-row"><span class="watch-label">Weather</span><span>Soybean (Argentina): dry season extending</span></div>
-                                <div class="watch-row"><span class="watch-label">Risk</span><span>Black Sea corridor: wheat supply stable</span></div>
-                            </div>
-                        </div>
-                        <div class="digest-foot">
-                            <span>Demo data, not live. Figures are samples for preview.</span>
-                            <span>Free preview · <button type="button" class="digest-upgrade" onclick="showToast('Pro adds a daily 7am digest and SMS alerts (coming soon)', 'info')">Upgrade to Pro (coming soon)</button></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <div class="section-title">🌍 Regional Price Comparison <span class="tier-badge tier-trader">Trader</span></div>
-                    <div class="content-box">
-                        <div id="regionalComparisonContainer" style="min-height:300px; display:flex; align-items:center; justify-content:center; color:var(--text-secondary);">
-                            <p>Select a commodity to see regional prices...</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <div class="section-title">🧠 Commodity Intelligence</div>
-                    <div id="commodityIntelligence" class="content-box" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:1.5rem;"></div>
-                </div>
-
-                <div class="section">
-                    <div class="section-title">🌍 Country Market Analysis</div>
-                    <div class="content-box">
-                        <button class="btn-small" style="margin-bottom: 1rem;" onclick="exportTableToCSV('country')">📥 Export CSV</button>
-                        <div class="table-wrapper">
-                            <table class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>Country</th>
-                                        <th>Current Price</th>
-                                        <th>Volume</th>
-                                        <th>Status</th>
-                                        <th>Change</th>
-                                        <th>YoY</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="countryTable"></tbody>
-                            </table>
-                        </div>
-                        <button class="load-more-btn" id="loadMoreBtn" onclick="loadMoreCountries()" style="display: none;">Load More</button>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <div class="section-title">🌍 Global Market Share</div>
-                    <div class="content-box">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;" class="market-share-grid">
-                            <div class="chart-container" style="height: 280px;">
-                                <canvas id="marketShareChart"></canvas>
-                            </div>
-                            <div id="marketLegend" style="font-size: 14px;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ROUTES TAB -->
-            <div id="routesTab" class="tab-content">
-                <div class="section">
-                    <div class="section-title">🚚 Route Optimization Summary</div>
-                    <div id="routeOptimization" class="routes-grid"></div>
-                </div>
-                <div class="section">
-                    <div class="section-title">🗺️ Optimal Trade Routes</div>
-                    <div id="routes" class="routes-grid"></div>
-                </div>
-            </div>
-
-            <!-- COMPLIANCE TAB -->
-            <div id="complianceTab" class="tab-content">
-                <div class="section">
-                    <div class="section-title">⚠️ Compliance Alerts</div>
-                    <div class="content-box">
-                        <div id="complianceAlerts"></div>
-                    </div>
-                </div>
-                <div class="section">
-                    <div class="section-title">📜 Tariff & Certification Status</div>
-                    <div class="content-box">
-                        <div class="table-wrapper">
-                            <table class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>Origin</th>
-                                        <th>Destination</th>
-                                        <th>Rules &amp; Certs</th>
-                                        <th>Tariff Rate</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="complianceTable"></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- WEATHER TAB -->
-            <div id="weatherTab" class="tab-content">
-                <div class="section">
-                    <div class="section-title">🌦️ Weather Impact & Yield</div>
-                    <div id="weatherContent" class="routes-grid"></div>
-                </div>
-            </div>
-
-            <!-- TRADING TAB -->
-            <div id="tradingTab" class="tab-content">
-                <div class="metrics-grid">
+            <div id="subStash" style="display:none;">
+            <div id="accountMinibar" class="sub-tab">                <div class="metrics-grid">
                     <div class="metric-card">
                         <div class="metric-label">Account Equity</div>
                         <div class="metric-value" id="accountEquity">$10,000.00</div>
@@ -1101,8 +982,8 @@ Updated: ${new Date().toLocaleTimeString()}
                         <div class="metric-value" id="tradingWalletStatus" style="font-size: 14px;">Not Connected</div>
                     </div>
                 </div>
-
-                <div class="section">
+            </div>
+            <div id="advancedOrders" class="sub-tab">                <div class="section">
                     <div class="section-title">💹 Advanced Trade Orders <span style="font-size:12px; color: var(--text-secondary); font-weight:400;">(UI only: orders are recorded in your browser, not sent on-chain)</span></div>
                     <div class="content-box">
                         <div class="trade-panel">
@@ -1152,18 +1033,15 @@ Updated: ${new Date().toLocaleTimeString()}
                         </div>
                     </div>
                 </div>
-
-                <div class="section">
+            </div>
+            <div id="activePositionsBlock" class="sub-tab">                <div class="section">
                     <div class="section-title">📍 Active Positions</div>
                     <div class="content-box" id="activePositions">
                         <p style="color: var(--text-secondary); font-style: italic;">No active positions</p>
                     </div>
                 </div>
             </div>
-
-            <!-- PORTFOLIO TAB -->
-            <div id="portfolioTab" class="tab-content">
-                <div class="metrics-grid">
+            <div id="pnlMinibar" class="sub-tab">                <div class="metrics-grid">
                     <div class="metric-card">
                         <div class="metric-label">Total P&L</div>
                         <div class="metric-value" id="totalPnL">$0.00</div>
@@ -1181,15 +1059,15 @@ Updated: ${new Date().toLocaleTimeString()}
                         <div class="metric-value" id="totalTrades">0</div>
                     </div>
                 </div>
-
-                <div class="section">
+            </div>
+            <div id="holdingsBlock" class="sub-tab">                <div class="section">
                     <div class="section-title">📦 My Holdings</div>
                     <div class="content-box" id="portfolioHoldings">
                         <p style="color: var(--text-secondary); font-style: italic;">No open holdings</p>
                     </div>
                 </div>
-
-                <div class="section">
+            </div>
+            <div id="equityBlock" class="sub-tab">                <div class="section">
                     <div class="section-title">📈 Equity Curve</div>
                     <div class="content-box">
                         <div class="chart-container" style="height: 300px;">
@@ -1197,8 +1075,8 @@ Updated: ${new Date().toLocaleTimeString()}
                         </div>
                     </div>
                 </div>
-
-                <div class="section">
+            </div>
+            <div id="historyBlock" class="sub-tab">                <div class="section">
                     <div class="section-title">📋 Trade History</div>
                     <div class="content-box">
                         <button class="btn-small" style="margin-bottom: 1rem;" onclick="exportTableToCSV('trades')">📥 Export CSV</button>
@@ -1225,9 +1103,136 @@ Updated: ${new Date().toLocaleTimeString()}
                     </div>
                 </div>
             </div>
-
-            <!-- WATCHLIST TAB -->
-            <div id="watchlistTab" class="tab-content">
+            <div id="regionalBlock" class="sub-tab">                <div class="section">
+                    <div class="section-title">🌍 Regional Price Comparison <span class="tier-badge tier-trader">Trader</span></div>
+                    <div class="content-box">
+                        <div id="regionalComparisonContainer" style="min-height:300px; display:flex; align-items:center; justify-content:center; color:var(--text-secondary);">
+                            <p>Select a commodity to see regional prices...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="countryBlock" class="sub-tab">                <div class="section">
+                    <div class="section-title">🌍 Country Market Analysis</div>
+                    <div class="content-box">
+                        <button class="btn-small" style="margin-bottom: 1rem;" onclick="exportTableToCSV('country')">📥 Export CSV</button>
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Country</th>
+                                        <th>Current Price</th>
+                                        <th>Volume</th>
+                                        <th>Status</th>
+                                        <th>Change</th>
+                                        <th>YoY</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="countryTable"></tbody>
+                            </table>
+                        </div>
+                        <button class="load-more-btn" id="loadMoreBtn" onclick="loadMoreCountries()" style="display: none;">Load More</button>
+                    </div>
+                </div>
+            </div>
+            <div id="shareBlock" class="sub-tab">                <div class="section">
+                    <div class="section-title">🌍 Global Market Share</div>
+                    <div class="content-box">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;" class="market-share-grid">
+                            <div class="chart-container" style="height: 280px;">
+                                <canvas id="marketShareChart"></canvas>
+                            </div>
+                            <div id="marketLegend" style="font-size: 14px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="digestBlock" class="sub-tab">
+                <div class="section">
+                    <div class="section-title">Market Digest <span class="tier-badge tier-pro">Pro</span></div>
+                    <div id="dailyBriefCard" class="content-box digest">
+                        <div class="digest-grid">
+                            <div>
+                                <div class="digest-col-title">Movers</div>
+                                <div class="mover">
+                                    <div><div class="mover-name">Maize</div><div class="mover-note">US drought watch</div></div>
+                                    <span class="mover-change up">+2.1%</span>
+                                </div>
+                                <div class="mover">
+                                    <div><div class="mover-name">Coffee</div><div class="mover-note">Brazil frost risk</div></div>
+                                    <span class="mover-change up">+3.4%</span>
+                                </div>
+                                <div class="mover">
+                                    <div><div class="mover-name">Cocoa</div><div class="mover-note">Ivorian harvest ramp</div></div>
+                                    <span class="mover-change down">−1.2%</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="digest-col-title">Watch</div>
+                                <div class="watch-row"><span class="watch-label">FX</span><span>Naira ₦1,652/$ (+0.3%)</span></div>
+                                <div class="watch-row"><span class="watch-label">EUDR</span><span>Cocoa traceability demand +15% YoY</span></div>
+                                <div class="watch-row"><span class="watch-label">Weather</span><span>Soybean (Argentina): dry season extending</span></div>
+                                <div class="watch-row"><span class="watch-label">Risk</span><span>Black Sea corridor: wheat supply stable</span></div>
+                            </div>
+                        </div>
+                        <div class="digest-foot">
+                            <span>Demo data, not live. Figures are samples for preview.</span>
+                            <span>Free preview · <button type="button" class="digest-upgrade" onclick="showToast('Pro adds a daily 7am digest and SMS alerts (coming soon)', 'info')">Upgrade to Pro (coming soon)</button></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="intelBlock" class="sub-tab">
+                <div class="section">
+                    <div class="section-title">🧠 Commodity Intelligence</div>
+                    <div id="commodityIntelligence" class="content-box" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:1.5rem;"></div>
+                </div>
+            </div>
+            <div id="routesTab" class="sub-tab">
+                <div class="section">
+                    <div class="section-title">🚚 Route Optimization Summary</div>
+                    <div id="routeOptimization" class="routes-grid"></div>
+                </div>
+                <div class="section">
+                    <div class="section-title">🗺️ Optimal Trade Routes</div>
+                    <div id="routes" class="routes-grid"></div>
+                </div>
+            </div>
+            <div id="complianceTab" class="sub-tab">
+                <div class="section">
+                    <div class="section-title">⚠️ Compliance Alerts</div>
+                    <div class="content-box">
+                        <div id="complianceAlerts"></div>
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="section-title">📜 Tariff & Certification Status</div>
+                    <div class="content-box">
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Origin</th>
+                                        <th>Destination</th>
+                                        <th>Rules &amp; Certs</th>
+                                        <th>Tariff Rate</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="complianceTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="weatherTab" class="sub-tab">
+                <div class="section">
+                    <div class="section-title">🌦️ Weather Impact & Yield</div>
+                    <div id="weatherContent" class="routes-grid"></div>
+                </div>
+            </div>
+            <div id="watchlistTab" class="sub-tab">
                 <div class="metrics-grid">
                     <div class="metric-card">
                         <div class="metric-label">Watched Items</div>
@@ -1240,9 +1245,26 @@ Updated: ${new Date().toLocaleTimeString()}
                 </div>
 
                 <div class="section">
-                    <div class="section-title">⭐ My Watchlist</div>
+                    <div class="section-title">⭐ My Watchlist
+                        <button class="wl-add-btn" id="wlAddBtn" title="Add to watchlist" aria-label="Add to watchlist" onclick="toggleWatchlistAddPanel()">+</button>
+                    </div>
+                    <div class="wl-add-panel" id="wlAddPanel">
+                        <select id="wlProduct" onchange="populateWatchlistCountries()">
+                            <option value="maize">🌾 Maize</option>
+                            <option value="wheat">🌾 Wheat</option>
+                            <option value="rice">🍚 Rice</option>
+                            <option value="cocoa">🍫 Cocoa</option>
+                            <option value="coffee">☕ Coffee</option>
+                            <option value="palm">🌴 Palm Oil</option>
+                            <option value="soybean">🌱 Soybeans</option>
+                            <option value="cassava">🥔 Cassava</option>
+                        </select>
+                        <select id="wlCountry"></select>
+                        <button class="btn-small" onclick="addFromWatchlistPanel()">Add</button>
+                        <button class="btn-small" style="background: var(--bg-primary); color: var(--text-primary); border: 1px solid var(--border-color);" onclick="toggleWatchlistAddPanel(false)">Cancel</button>
+                    </div>
                     <div class="content-box" id="watchlistItems">
-                        <p style="color: var(--text-secondary); font-style: italic;">Add items to watchlist from Overview</p>
+                        <p style="color: var(--text-secondary); font-style: italic;">No items in watchlist. Tap + to add one.</p>
                     </div>
                 </div>
 
@@ -1269,9 +1291,7 @@ Updated: ${new Date().toLocaleTimeString()}
                     </div>
                 </div>
             </div>
-
-            <!-- TERMINAL TAB -->
-            <div id="collateralTab" class="tab-content">
+            <div id="collateralTab" class="sub-tab">
                 <div class="section">
                     <div class="section-title">🏦 Collateral Valuation Calculator <span class="tier-badge tier-enterprise">Enterprise</span></div>
                     <div class="content-box" style="max-width:600px;">
@@ -1339,8 +1359,7 @@ Updated: ${new Date().toLocaleTimeString()}
                     </div>
                 </div>
             </div>
-
-            <div id="marginTab" class="tab-content">
+            <div id="marginTab" class="sub-tab">
                 <div class="section">
                     <div class="section-title">📈 Trade Route Margin Calculator <span class="tier-badge tier-trader">Trader</span></div>
                     <div class="content-box" style="max-width:700px;">
@@ -1445,8 +1464,7 @@ Updated: ${new Date().toLocaleTimeString()}
                     </div>
                 </div>
             </div>
-
-            <div id="syntheticTab" class="tab-content">
+            <div id="syntheticTab" class="sub-tab">
                 <div class="demo-note">
                     <strong>Demo mode.</strong> Prices come from the demo oracle. Positions are recorded in your browser. On-chain USDC settlement on Solana is coming soon.
                 </div>
@@ -1533,9 +1551,103 @@ Updated: ${new Date().toLocaleTimeString()}
                     </div>
                 </div>
             </div>
+            </div>
 
-            <div id="terminalTab" class="tab-content">
-                <!-- Populated by initTerminal() -->
+            <div id="overviewTab" class="page-tab active">                <div id="alertsContainer"></div>
+
+                <div class="metrics-grid" id="metrics"></div>
+
+                <div class="section">
+                    <div class="section-title">📈 Technical Analysis Charts</div>
+                    <div class="content-box">
+                        <div class="chart-tabs">
+                            <button class="chart-tab active" onclick="switchChart('historical')">Historical Prices</button>
+                            <button class="chart-tab" onclick="switchChart('volatility')">Volatility</button>
+                            <button class="chart-tab" onclick="switchChart('flow')">Inflow/Outflow</button>
+                            <button class="chart-tab" onclick="switchChart('indicators')">RSI & SMA</button>
+                        </div>
+                        <div id="historicalChart" class="tab-content active">
+                            <div class="chart-container">
+                                <canvas id="priceChart"></canvas>
+                            </div>
+                        </div>
+                        <div id="volatilityChart" class="tab-content">
+                            <div class="chart-container">
+                                <canvas id="volChart"></canvas>
+                            </div>
+                        </div>
+                        <div id="flowChart" class="tab-content">
+                            <div class="chart-container">
+                                <canvas id="flowChartCanvas"></canvas>
+                            </div>
+                        </div>
+                        <div id="indicatorsChart" class="tab-content">
+                            <div class="chart-container">
+                                <canvas id="indicatorsChartCanvas"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">⚡ Quick Synthetic Order</div>
+                    <div class="trade-panel">
+                        <div class="trade-form-group">
+                            <label>Market</label>
+                            <select id="qsMarket" onchange="updateQuickSynQuote()"></select>
+                        </div>
+                        <div class="trade-form-group">
+                            <label>Quantity</label>
+                            <div style="display:flex; gap:0.4rem;">
+                                <input type="number" id="qsQty" min="0" step="1" value="1000" oninput="updateQuickSynQuote()" style="flex:1; min-width:0;">
+                                <select id="qsUnit" onchange="updateQuickSynQuote()" style="width:92px;">
+                                    <option value="kg">kg</option>
+                                    <option value="tonne">tonne</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="trade-form-group">
+                            <label>Settlement</label>
+                            <select disabled><option>USDC (coming soon)</option></select>
+                        </div>
+                        <div style="grid-column: 1 / -1;"><div id="qsQuote" class="syn-quote"></div></div>
+                        <div style="grid-column: 1 / -1; display:flex; gap:0.75rem;">
+                            <button type="button" class="trade-btn" style="flex:1;" onclick="quickSynOrder('long')">🟢 Go Long</button>
+                            <button type="button" class="trade-btn trade-btn-short" style="flex:1;" onclick="quickSynOrder('short')">🔴 Go Short</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="overviewSlot" class="page-slot"></div>
+            </div>
+
+            <div id="marketTab" class="page-tab">
+                <div id="marketSlot" class="page-slot"></div>
+            </div>
+
+            <div id="proTab" class="page-tab">
+                <div id="proSlot" class="page-slot"></div>
+            </div>
+
+            <div id="tradersTab" class="page-tab">
+                <div id="tradersSlot" class="page-slot"></div>
+            </div>
+
+            <div id="enterpriseTab" class="page-tab">
+                <div id="enterpriseSlot" class="page-slot"></div>
+            </div>
+
+            <div id="terminalPage" class="page-tab">
+                <div class="content-box" style="margin-bottom:1rem; display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap;">
+                    <div>
+                        <strong>Free terminal.</strong> Ask general market questions and get grounded answers.
+                        <div style="font-size:0.9rem; color:var(--text-secondary); margin-top:0.3rem;">
+                            Pro adds real-time prices in answers, route and compliance-aware responses, weather-driven risk checks, and saved chat history. <span class="paid-tag">Pro</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="terminalTab" class="sub-tab">
+                    <!-- Populated by initTerminal() -->
+                </div>
             </div>
         </div>
     </div>
@@ -2008,7 +2120,7 @@ Updated: ${new Date().toLocaleTimeString()}
             localStorage.setItem('userEmail', email);
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('mainApp').style.display = 'block';
-            document.getElementById('userAvatar').textContent = name.charAt(0).toUpperCase();
+            document.querySelector('#userAvatar .avatar-letter').textContent = name.charAt(0).toUpperCase();
             initApp();
         }
 
@@ -2232,75 +2344,145 @@ Updated: ${new Date().toLocaleTimeString()}
         document.addEventListener('DOMContentLoaded', populateSyntheticMarkets);
         setInterval(() => {
             const tab = document.getElementById('syntheticTab');
-            if (tab && tab.classList.contains('active')) renderSyntheticPanel();
+            if (tab && tab.offsetParent !== null) renderSyntheticPanel();
         }, 5000);
+
+        const PAGE_IDS = { overview: 'overviewTab', market: 'marketTab', pro: 'proTab', traders: 'tradersTab', enterprise: 'enterpriseTab', terminal: 'terminalPage' };
+        const PRO_SUBS = ['digestBlock', 'intelBlock', 'countryBlock', 'shareBlock', 'routesTab', 'complianceTab', 'weatherTab'];
+        const TRADER_SUBS = ['accountMinibar', 'advancedOrders', 'activePositionsBlock', 'pnlMinibar', 'holdingsBlock', 'equityBlock', 'historyBlock', 'regionalBlock'];
+        // own = sections shown open on this page; groups = sections inherited from lower tiers, collapsed under one bar
+        const PAGE_SUBS = {
+            overview: { slot: 'overviewSlot', own: ['countryBlock', 'shareBlock'], groups: [] },
+            market: { slot: 'marketSlot', own: ['syntheticTab', 'watchlistTab'], groups: [] },
+            pro: { slot: 'proSlot', own: PRO_SUBS, groups: [] },
+            traders: { slot: 'tradersSlot', own: [...TRADER_SUBS, 'marginTab'], groups: [{ label: 'Included in Traders', note: 'Pro features', subs: PRO_SUBS }] },
+            enterprise: { slot: 'enterpriseSlot', own: ['collateralTab', 'marginTab'], groups: [{ label: 'Included in Enterprise', note: 'Traders & Pro features', subs: [...TRADER_SUBS, ...PRO_SUBS] }] }
+        };
+
+        // Moves each section into the slot of the page being shown; everything else waits in the stash
+        function mountTab(page) {
+            const stash = document.getElementById('subStash');
+            const managed = new Set(Object.values(PAGE_SUBS).flatMap(c => [...c.own, ...c.groups.flatMap(g => g.subs)]));
+            managed.forEach(id => { const el = document.getElementById(id); if (el && stash) stash.appendChild(el); });
+            // clear group bars left from earlier visits (their contents were already moved out above)
+            document.querySelectorAll('.inherit-group').forEach(d => d.remove());
+            const cfg = PAGE_SUBS[page];
+            if (!cfg) return;
+            const slot = document.getElementById(cfg.slot);
+            if (!slot) return;
+            cfg.own.forEach(id => { const el = document.getElementById(id); if (el) slot.appendChild(el); });
+            cfg.groups.forEach(g => {
+                const details = document.createElement('details');
+                details.className = 'inherit-group';
+                details.innerHTML = `<summary>${g.label} <span class="inherit-count">${g.note}</span></summary><div class="inherit-body"></div>`;
+                const body = details.querySelector('.inherit-body');
+                g.subs.forEach(id => { const el = document.getElementById(id); if (el) body.appendChild(el); });
+                slot.appendChild(details);
+            });
+        }
+        document.addEventListener('DOMContentLoaded', () => mountTab('overview'));
+
+        function toggleProfileMenu(e) {
+            e.stopPropagation();
+            document.getElementById('profileMenu').classList.toggle('open');
+        }
+        document.addEventListener('click', e => {
+            const menu = document.getElementById('profileMenu');
+            if (menu && !e.target.closest('.profile-wrap')) menu.classList.remove('open');
+        });
+        function profileAction(kind) {
+            document.getElementById('profileMenu').classList.remove('open');
+            if (kind === 'picture') { document.getElementById('avatarInput').click(); return; }
+            const names = { admin: 'Admin dashboard', password: 'Change password' };
+            showToast(`${names[kind]} (coming soon)`, 'info');
+        }
+        function setAvatarPicture(input) {
+            const file = input.files && input.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = ev => {
+                const av = document.getElementById('userAvatar');
+                av.classList.add('has-photo');
+                av.style.backgroundImage = `url(${ev.target.result})`;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Page bar: clicking a page always opens it (no toggle-off)
+        function toggleMobileMenu() {
+            const nav = document.getElementById('pageNav');
+            nav.classList.toggle('open');
+            document.getElementById('mobileMenuBtn').textContent = nav.classList.contains('open') ? '✕' : '☰';
+        }
+        function togglePage(tab) {
+            switchTab(tab);
+            const nav = document.getElementById('pageNav');
+            if (nav.classList.contains('open')) toggleMobileMenu();
+        }
 
         function switchTab(tab) {
             currentTab = tab;
-            document.querySelectorAll('.tab-content').forEach(e => e.classList.remove('active'));
-            document.getElementById(tab + 'Tab').classList.add('active');
-            
-            // Update dropdown menu active state and label
-            document.querySelectorAll('.nav-dropdown-item').forEach(b => b.classList.remove('active'));
-            const activeItem = document.querySelector(`.nav-dropdown-item:has(+ *):nth-child(${getTabIndex(tab) + 1}), .nav-dropdown-item`);
-            document.querySelectorAll('.nav-dropdown-item').forEach((b, idx) => {
-                const text = b.textContent.trim();
-                const isActive = (text.includes('Overview') && tab === 'overview') ||
-                                (text.includes('Routes') && tab === 'routes') ||
-                                (text.includes('Compliance') && tab === 'compliance') ||
-                                (text.includes('Weather') && tab === 'weather') ||
-                                (text.includes('Trading') && tab === 'trading') ||
-                                (text.includes('Portfolio') && tab === 'portfolio') ||
-                                (text.includes('Watchlist') && tab === 'watchlist') ||
-                                (text.includes('Collateral') && tab === 'collateral') ||
-                                (text.includes('Margin') && tab === 'margin') ||
-                                (text.includes('Terminal') && tab === 'terminal') ||
-                                (text.includes('Synthetic') && tab === 'synthetic');
-                if (isActive) {
-                    b.classList.add('active');
-                }
-            });
-            
-            // Update old btn-toggle elements if they still exist (for compatibility)
-            document.querySelectorAll('.btn-toggle').forEach(b => {
-                const text = b.textContent.trim();
-                if (text.includes('Overview')) b.classList.toggle('active', tab === 'overview');
-                if (text.includes('Routes')) b.classList.toggle('active', tab === 'routes');
-                if (text.includes('Compliance')) b.classList.toggle('active', tab === 'compliance');
-                if (text.includes('Weather')) b.classList.toggle('active', tab === 'weather');
-                if (text.includes('Trading')) b.classList.toggle('active', tab === 'trading');
-                if (text.includes('Portfolio')) b.classList.toggle('active', tab === 'portfolio');
-                if (text.includes('Watchlist')) b.classList.toggle('active', tab === 'watchlist');
-                if (text.includes('Terminal')) b.classList.toggle('active', tab === 'terminal');
-            });
+            document.querySelectorAll('.page-tab').forEach(e => e.classList.remove('active'));
+            const pageEl = document.getElementById(PAGE_IDS[tab]);
+            if (pageEl) pageEl.classList.add('active');
+            mountTab(tab);
+
+            document.querySelectorAll('.page-nav-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+
             const ug = document.getElementById('unitToggleGroup');
-            if (ug) ug.style.display = ['compliance', 'weather', 'terminal'].includes(tab) ? 'none' : '';
+            if (ug) ug.style.display = ['terminal'].includes(tab) ? 'none' : '';
             const glp = document.getElementById('globalLivePrice');
-            if (glp) glp.style.display = ['portfolio', 'watchlist'].includes(tab) ? 'flex' : 'none';
+            if (glp) glp.style.display = ['market', 'traders', 'enterprise'].includes(tab) ? 'flex' : 'none';
             const ps = document.getElementById('productSelect');
             if (ps) ps.style.display = (tab === 'terminal') ? 'none' : '';
-            
-            // Set margin calculator defaults
-            if (tab === 'margin') {
+
+            if (tab === 'enterprise') {
                 const buyPriceEl = document.getElementById('marginBuyPrice');
                 const sellPriceEl = document.getElementById('marginSellPrice');
                 const commodityEl = document.getElementById('marginCommodity');
-                if (buyPriceEl && !buyPriceEl.value) {
-                    buyPriceEl.value = products[currentProduct].pricePerKg.toFixed(3);
-                }
-                if (sellPriceEl && !sellPriceEl.value) {
-                    sellPriceEl.value = (products[currentProduct].pricePerKg * 1.05).toFixed(3);
-                }
+                if (buyPriceEl && !buyPriceEl.value) buyPriceEl.value = products[currentProduct].pricePerKg.toFixed(3);
+                if (sellPriceEl && !sellPriceEl.value) sellPriceEl.value = (products[currentProduct].pricePerKg * 1.05).toFixed(3);
                 if (commodityEl) commodityEl.value = currentProduct;
                 updateMarginCalc();
             }
-            
-            // Initialize terminal chat
-            if (tab === 'terminal') {
-                initTerminal();
-            }
-            
-            if (tab === 'trading') updateTradePrice();
+            if (tab === 'terminal') initTerminal();
+            if (tab === 'traders' || tab === 'enterprise') updateTradePrice();
+            if (tab === 'market') renderSyntheticPanel();
+            setTimeout(() => window.dispatchEvent(new Event('resize')), 60);
+        }
+
+        // Quick synthetic order (Overview) reuses the Market synthetic order logic
+        function populateQuickSynth() {
+            const sel = document.getElementById('qsMarket');
+            if (!sel || sel.options.length) return;
+            sel.innerHTML = Object.keys(products).map(k => `<option value="${k}">${products[k].name}</option>`).join('');
+            updateQuickSynQuote();
+        }
+        document.addEventListener('DOMContentLoaded', populateQuickSynth);
+
+        function updateQuickSynQuote() {
+            const sel = document.getElementById('qsMarket');
+            const quote = document.getElementById('qsQuote');
+            if (!sel || !sel.value || !quote) return;
+            const qty = parseFloat(document.getElementById('qsQty').value);
+            if (isNaN(qty)) { quote.textContent = 'Enter a quantity to see the quote.'; return; }
+            const kg = qty * (document.getElementById('qsUnit').value === 'tonne' ? 1000 : 1);
+            const price = syntheticOraclePrice(sel.value);
+            const notional = kg * price;
+            const margin = notional / SYNTH_LIMITS.maxLeverage;
+            quote.innerHTML = `Reference price: <strong>${formatUsd(price)}/kg</strong> (demo oracle) · Notional: <strong>${formatUsd(notional)}</strong> · Initial margin: <strong>${formatUsd(margin)}</strong>`;
+        }
+
+        function quickSynOrder(direction) {
+            document.getElementById('synMarket').value = document.getElementById('qsMarket').value;
+            document.getElementById('synQty').value = document.getElementById('qsQty').value;
+            document.getElementById('synUnit').value = document.getElementById('qsUnit').value;
+            placeSyntheticOrder(direction);
+            const msg = document.getElementById('synMessage');
+            const text = msg ? msg.textContent : '';
+            if (text) showToast(text.replace(/^[✕✓]\s*/, ''), text.startsWith('✕') ? 'info' : 'success');
+            updateQuickSynQuote();
+            renderSyntheticPanel();
         }
 
         function getTabIndex(tab) {
@@ -2327,7 +2509,7 @@ Updated: ${new Date().toLocaleTimeString()}
 
         function closeNavDropdownOnClickOutside(e) {
             const dropdown = document.querySelector('.nav-dropdown-container');
-            if (!dropdown.contains(e.target)) {
+            if (dropdown && !dropdown.contains(e.target)) {
                 closeNavDropdown();
             }
         }
@@ -2335,6 +2517,7 @@ Updated: ${new Date().toLocaleTimeString()}
         // Scroll listener for menu button behavior
         window.addEventListener('scroll', () => {
             const menuBtn = document.querySelector('.nav-dropdown-trigger');
+            if (!menuBtn) return;
             if (window.scrollY > 100) {
                 menuBtn.classList.add('scrolled');
             } else {
@@ -2501,7 +2684,6 @@ Updated: ${new Date().toLocaleTimeString()}
             updateRouteOptimization(product);
             updateCompliance(product);
             updateWeather(product);
-            updateQuickPrice();
             updateCommodityIntelligence(product);
             updateRegionalComparison(product);
             const glp = document.getElementById('globalLivePrice');
@@ -3529,6 +3711,30 @@ Updated: ${new Date().toLocaleTimeString()}
             }
         }
 
+        function toggleWatchlistAddPanel(force) {
+            const panel = document.getElementById('wlAddPanel');
+            const open = typeof force === 'boolean' ? force : !panel.classList.contains('open');
+            panel.classList.toggle('open', open);
+            if (open) {
+                document.getElementById('wlProduct').value = currentProduct;
+                populateWatchlistCountries();
+            }
+        }
+
+        function populateWatchlistCountries() {
+            const product = document.getElementById('wlProduct').value;
+            const sel = document.getElementById('wlCountry');
+            const countries = Object.keys(products[product].countries || {});
+            sel.innerHTML = countries.map(c => `<option value="${c}">${c}</option>`).join('');
+        }
+
+        function addFromWatchlistPanel() {
+            const product = document.getElementById('wlProduct').value;
+            const country = document.getElementById('wlCountry').value;
+            if (!country) { showToast('Select a country first', 'info'); return; }
+            addToWatchlist(country, product);
+        }
+
         function removeFromWatchlist(country, product) {
             watchlist = watchlist.filter(w => !(w.country === country && w.product === product));
             updateWatchlist();
@@ -3896,7 +4102,7 @@ NFT Invoice: Minting on Solana (Coming Soon)`;
                 document.getElementById('loginScreen').style.display = 'none';
                 document.getElementById('mainApp').style.display = 'block';
                 const name = email.split('@')[0];
-                document.getElementById('userAvatar').textContent = name.charAt(0).toUpperCase();
+                document.querySelector('#userAvatar .avatar-letter').textContent = name.charAt(0).toUpperCase();
                 initApp();
             }
         });
